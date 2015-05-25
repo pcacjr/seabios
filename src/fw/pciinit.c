@@ -183,6 +183,10 @@ static void mch_isa_bridge_setup(struct pci_device *dev, void *arg)
     /* acpi enable, SCI: IRQ9 000b = irq9*/
     pci_config_writeb(bdf, ICH9_LPC_ACPI_CTRL, ICH9_LPC_ACPI_CTRL_ACPI_EN);
 
+    /* set root complex register block BAR */
+    pci_config_writel(bdf, ICH9_LPC_RCBA,
+                      ICH9_LPC_RCBA_ADDR | ICH9_LPC_RCBA_EN);
+
     acpi_pm1a_cnt = acpi_pm_base + 0x04;
     pmtimer_setup(acpi_pm_base + 0x08);
 }
